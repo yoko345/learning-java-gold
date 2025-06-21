@@ -1,15 +1,22 @@
 package jp.learningdesign.javapractice;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Future;
 
 public class Sample {
-    public static void main(String[] args) {
-        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
-        exec.scheduleAtFixedRate(() -> {
-            System.out.println("finish");
-            exec.shutdown();
-        }, 1, 1, TimeUnit.SECONDS);
-    }
+	public static void main(String[] args) throws Exception {
+		ExecutorService exec = Executors.newSingleThreadExecutor();
+		Future future = exec.submit(() -> {
+			try {
+				System.out.println("start");
+				Thread.sleep(2000);
+				System.out.println("end");
+			} catch (InterruptedException e) {
+				throw new RuntimeException();
+			}
+		});
+
+		System.out.println(future.get());
+	}
 }

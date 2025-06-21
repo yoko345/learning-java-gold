@@ -5,18 +5,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Sample {
-	public static void main(String[] args) throws Exception {
-		ExecutorService exec = Executors.newSingleThreadExecutor();
-		Future future = exec.submit(() -> {
-			try {
-				System.out.println("start");
-				Thread.sleep(2000);
-				System.out.println("end");
-			} catch (InterruptedException e) {
-				throw new RuntimeException();
-			}
-		});
+    public static void main(String[] args) throws Exception {
+        ExecutorService exec = Executors.newSingleThreadExecutor();
+        Future<String> future = exec.submit(() -> {
+            try {
+                System.out.println("start");
+                Thread.sleep(2000);
+                System.out.println("end");
+            } catch (InterruptedException e) {
+                throw new RuntimeException();
+            }
+        }, "終了しました");
 
-		System.out.println(future.get());
-	}
+        System.out.println(future.get());
+    }
 }

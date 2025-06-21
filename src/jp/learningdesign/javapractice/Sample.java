@@ -7,10 +7,9 @@ import java.util.concurrent.TimeUnit;
 public class Sample {
     public static void main(String[] args) {
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
-        exec.schedule(() -> {
+        exec.scheduleAtFixedRate(() -> {
             System.out.println("finish");
             exec.shutdown();
-        }, 1, TimeUnit.SECONDS);
-
+        }, 1, 1, TimeUnit.SECONDS);
     }
 }

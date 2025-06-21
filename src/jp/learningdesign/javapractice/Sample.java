@@ -1,13 +1,16 @@
 package jp.learningdesign.javapractice;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Sample {
     public static void main(String[] args) {
-        ExecutorService exec = Executors.newFixedThreadPool(3);
-        for (int i = 0; i < 5; i++) {
-            exec.submit(() -> System.out.println(Thread.currentThread().getName()));
-        }
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        exec.schedule(() -> {
+            System.out.println("finish");
+            exec.shutdown();
+        }, 1, TimeUnit.SECONDS);
+
     }
 }

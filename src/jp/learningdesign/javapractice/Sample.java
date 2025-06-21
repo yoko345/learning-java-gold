@@ -3,7 +3,7 @@ package jp.learningdesign.javapractice;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -11,28 +11,26 @@ import java.util.concurrent.Future;
 public class Sample {
     public static void main(String[] args) throws Exception {
         ExecutorService exec = Executors.newSingleThreadExecutor();
-
-        Callable<Boolean> task = new Callable<Boolean>() {
-            @Override
-            public Boolean call() throws Exception {
-                return new Random().nextInt() % 2 == 0;
-            }
-        };
-
         List<Future<Boolean>> futures = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            futures.add(exec.submit(task));
-        }
 
-        List<Future<Boolean>> futures = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            futures.add(exec.submit(() -> new Random().nextInt() % 2 == 0));
+            futures.add(exec.submit(() -> {
+                if (new Random().nextInt() % 2 != 0) {
+                    throw new Exception("奇数です");
+                }
+                return true;
+            }));
         }
 
         int total = 0;
         for (Future<Boolean> future : futures) {
-            Boolean result = future.get();
-            System.out.println(result);
+            Boolean result = false;
+            try {
+                result = future.get();
+                System.out.println(result);
+            } catch (ExecutionException e) {
+                System.out.println(e.getMessage());
+            }
 
             if (result) {
                 total++;

@@ -1,15 +1,19 @@
 package jp.learningdesign.javapractice;
 
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.List;
 
 public class Sample {
     public static void main(String[] args) throws Exception {
-        Optional<String> sample = Optional.of("sample");
-        Optional<String> result = sample.flatMap(str -> test(str));
-        System.out.println(result.get()); // SAMPLE
+        List<Value> list = Arrays.asList(
+            new Value("A"),
+            new Value("B"),
+            new Value("C"),
+            new Value("A")
+        );
+
+        long size = list.stream().distinct().count();
+        System.out.println(size);
     }
 
-    private static Optional<String> test(String str) {
-        return Optional.of(str.toUpperCase());
-    }
 }

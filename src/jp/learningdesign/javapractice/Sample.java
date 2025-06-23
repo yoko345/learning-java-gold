@@ -1,21 +1,17 @@
 package jp.learningdesign.javapractice;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Sample {
     public static void main(String[] args) throws Exception {
-        List<Integer> list = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-
-        for (int i = 0; i < 5; i++) {
-            list.parallelStream().findAny().ifPresent(System.out::print);
-            System.out.print(", ");
-            list.parallelStream().findFirst().ifPresent(System.out::println);
-        }
-
-        list.parallelStream().filter(x -> {
-            System.out.println(x + " : " + (x % 2 == 0));
-            return x % 2 == 0;
-        }).findFirst().ifPresent(System.out::println);
+        List<Integer> list = Arrays.asList(5, 8, 2, 9, 3, 1, 10, 7, 6, 4);
+        list.stream().sorted((a, b) -> {
+            if (a < b)
+                return -1;
+            if (a > b)
+                return 1;
+            return 0;
+        }).forEach(val -> System.out.printf("%d, ", val));
     }
-
 }

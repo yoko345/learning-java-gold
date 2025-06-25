@@ -26,7 +26,14 @@ public class SampleCollector implements Collector<String, StringBuilder, String>
 
     @Override
     public BinaryOperator<StringBuilder> combiner() {
-        return null;
+        // return null;
+        return (a, b) -> {
+            if (a.length() != 0) {
+                a.append(", ");
+            }
+            a.append(b);
+            return a;
+        };
     }
 
     @Override

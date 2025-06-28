@@ -13,8 +13,13 @@ public class Sample {
         // } catch (IOException e) {
         // e.printStackTrace();
         // }
+
+        // Console console = System.console();
+        // String str = console.readLine();
+        // System.out.println(str);
+
         Console console = System.console();
-        String str = console.readLine();
-        System.out.println(str);
+        char[] password = console.readPassword();
+        System.out.println(String.valueOf(password));
     }
 }

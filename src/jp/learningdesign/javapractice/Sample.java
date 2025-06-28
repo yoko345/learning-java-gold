@@ -1,28 +1,16 @@
 package jp.learningdesign.javapractice;
 
-import java.io.File;
-import java.io.FileFilter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Sample {
-    public static void main(String[] args) throws Exception {
-        File rootDir = new File("./src/jp/learningdesign/javapractice");
-        FileFilter filter = (path) -> {
-            if (path.isDirectory() || path.getName().startsWith("Sample")) {
-                return true;
-            }
-            return false;
-        };
-
-        showTree(rootDir, filter);
-    }
-
-    private static void showTree(File dir, FileFilter filter) {
-        File[] files = dir.listFiles(filter);
-        for (File file : files) {
-            System.out.println(file);
-            if (file.isDirectory()) {
-                showTree(dir, filter);
-            }
+    public static void main(String[] args) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            String input = br.readLine();
+            System.out.println(input);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

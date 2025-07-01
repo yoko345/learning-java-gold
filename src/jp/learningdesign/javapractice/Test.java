@@ -1,13 +1,18 @@
 package jp.learningdesign.javapractice;
 
-import java.util.Arrays;
+public class Test<T> {
+    T value;
 
-public class Test {
-	public static void main(String[] args) {
-		int[][] array = new int[3][2];
-		array = new int[][] { { 1 } };
+    public Test(T value) {
+        super();
+        this.value = value;
+    }
 
-		System.out.println(Arrays.deepToString(array));
+    public T getValue() {
+        return value;
+    }
 
-	}
+    public void setValue(T value) {
+        this.value = value;
+    }
 }

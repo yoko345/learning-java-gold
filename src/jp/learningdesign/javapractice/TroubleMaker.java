@@ -7,6 +7,9 @@ public class TroubleMaker {
         } catch (RuntimeException e) {
             System.out.println("A");
         } catch (Exception e) {
+            for (Throwable t : e.getSuppressed()) {
+                System.out.println(t);
+            }
             System.out.println("B");
         }
     }
